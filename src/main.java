@@ -97,7 +97,7 @@ public class main {
         System.out.println("------------------- o -------------------");
     }
 
-    public static List<Arma> cargarArmeria()throws InputMismatchException {
+    public static void cargarArmeria()throws InputMismatchException {
         int arma;
         String nombre;
         System.out.println("Seleccione el tipo de arma a agregar: 1-Espada 2-Arco 3-Baculo / Otro numero para dejar de cargar");
@@ -138,7 +138,6 @@ public class main {
         }
         System.out.println("------------------- o -------------------");
 
-        return armeria;
     }
 
     public static void equiparEjercito(List<Guerrero> ejercito, List<Arma> armeria) {
