@@ -4,6 +4,8 @@ import Modulos.Armas.Arco;
 import Modulos.Armas.Arma;
 import Modulos.Armas.Espada;
 
+import java.text.DecimalFormat;
+
 public class Berserker extends Guerrero{
 
     //Atributos
@@ -41,10 +43,11 @@ public class Berserker extends Guerrero{
 
     @Override
     public String toString() {
+        final DecimalFormat df = new DecimalFormat("0.00");
         if(this.arma!=null){
-            return super.toString()+" y poder de ataque basico de "+this.ataqueBasico();
+            return super.toString()+" y poder de ataque basico de "+df.format(this.ataqueBasico());
         } else {
-            return super.toString();
+            return super.toString()+" y no tiene arma.";
         }
     }
 

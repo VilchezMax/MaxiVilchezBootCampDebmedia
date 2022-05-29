@@ -3,6 +3,8 @@ package Modulos;
 import Interfaces.IUtilidades;
 import Modulos.Armas.Arma;
 
+import java.text.DecimalFormat;
+
 public abstract class Guerrero implements IUtilidades {
     //Atributos
     private int id;
@@ -64,6 +66,7 @@ public abstract class Guerrero implements IUtilidades {
 
     @Override
     public String toString() {
-        return this.getNombre()+", "+this.getClass()+" de ID "+this.getId()+" con una fuerza de "+this.getFuerza()+" puntos";
+        final DecimalFormat df = new DecimalFormat("0.00");
+        return "(ID "+this.getId()+") - "+this.getNombre()+", "+this.getClass().getSimpleName()+" con una fuerza de "+df.format(this.getFuerza())+" puntos ";
     }
 }

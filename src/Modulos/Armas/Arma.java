@@ -2,6 +2,8 @@ package Modulos.Armas;
 
 import Interfaces.IUtilidades;
 
+import java.text.DecimalFormat;
+
 public abstract class Arma implements IUtilidades {
     //Atributos
     private int id;
@@ -52,6 +54,7 @@ public abstract class Arma implements IUtilidades {
 
     @Override
     public String toString() {
-        return this.getClass()+" "+this.getNombre()+", de ID="+this.getId()+"y con poder de ataque "+this.getPoderAtaque()+".";
+        final DecimalFormat df = new DecimalFormat("0.00");
+        return "(ID "+this.getId()+") - "+this.getClass().getSimpleName()+" "+this.getNombre()+" con poder de ataque "+df.format(this.getPoderAtaque())+".";
     }
 }

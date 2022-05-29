@@ -3,6 +3,8 @@ package Modulos;
 import Modulos.Armas.Arco;
 import Modulos.Armas.Arma;
 
+import java.text.DecimalFormat;
+
 public class Arquero extends Guerrero {
     //Atributos
     private Arco arma;
@@ -37,10 +39,11 @@ public class Arquero extends Guerrero {
 
     @Override
     public String toString() {
+        final DecimalFormat df = new DecimalFormat("0.00");
         if(this.arma!=null){
-            return super.toString()+" y poder de ataque basico de "+this.ataqueBasico();
+            return super.toString()+" y poder de ataque basico de "+df.format(this.ataqueBasico());
         } else {
-            return super.toString();
+            return super.toString()+" y no tiene arma.";
         }
     }
 

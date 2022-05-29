@@ -3,6 +3,8 @@ package Modulos;
 
 import Modulos.Armas.Baculo;
 
+import java.text.DecimalFormat;
+
 public class Mago extends Guerrero {
     //Atributo
     private Baculo arma;
@@ -36,10 +38,11 @@ public class Mago extends Guerrero {
 
     @Override
     public String toString() {
+        final DecimalFormat df = new DecimalFormat("0.00");
         if(this.arma!=null){
-            return super.toString()+" y poder de ataque magico de "+this.ataqueMagico();
+            return super.toString()+" y poder de ataque magico de "+df.format(this.ataqueMagico());
         } else {
-            return super.toString();
+            return super.toString()+" y no tiene arma.";
         }
     }
 

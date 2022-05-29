@@ -1,6 +1,7 @@
 import Modulos.*;
 import Modulos.Armas.*;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 
@@ -8,24 +9,35 @@ public class main {
     static Scanner teclado = new Scanner(System.in);
     static List<Guerrero> ejercito=new ArrayList<>();
     static List<Arma> armeria=new ArrayList<>();
+    public final DecimalFormat df = new DecimalFormat("0.00");
 
     public static void main(String[] args) {
         cargarArmeria();
+        cargarEjercito();
+        equiparEjercito(ejercito,armeria);
+        resultadoDeArmeria();
+
+        Berserker reyArturo = new Berserker();
+        Espada excalibur = new Espada();
+        cargarArma(reyArturo,excalibur);
+        Enemigo jefe = new Enemigo();
+        matarEnemigo(reyArturo,jefe);
+
     }
 
-    public static void cargarArma(Guerrero warrior,Arma weapon) {
-        if (warrior.getClass()==Berserker.class && weapon.getClass()==Espada.class) {
-            warrior.setArma(weapon);
-        }else if (warrior.getClass()==Arquero.class && weapon.getClass()==Arco.class) {
-            warrior.setArma(weapon);
-        }else if (warrior.getClass()==Mago.class && weapon.getClass()==Baculo.class) {
-            warrior.setArma(weapon);
+    public static void cargarArma(Guerrero guerrero,Arma arma) {
+        if (guerrero.getClass()==Berserker.class && arma.getClass()==Espada.class) {
+            guerrero.setArma(arma);
+        }else if (guerrero.getClass()==Arquero.class && arma.getClass()==Arco.class) {
+            guerrero.setArma(arma);
+        }else if (guerrero.getClass()==Mago.class && arma.getClass()==Baculo.class) {
+            guerrero.setArma(arma);
         }else {
-            System.out.println("Soy un "+warrior.getClass()+" y solo uso "+weapon.getClass());
+            System.out.println("Soy un "+guerrero.getClass().getSimpleName()+" y solo uso "+arma.getClass());
         }
-    } //TODO aunque se podria mejorar el input, quizas un try catch
+    }
 
-    public static void cargarEjercito() throws InputMismatchException{
+    public static List<Guerrero> cargarEjercito() throws InputMismatchException {
         int clase;
         String nombre = null;
         System.out.println("Seleccione la clase del guerrero a agregar: 1-Berserker 2-Arquero 3-Mago / Otro numero para dejar de cargar");
@@ -60,7 +72,7 @@ public class main {
                 }
                 System.out.println("Seleccione la clase del guerrero a agregar: 1-Berserker 2-Arquero 3-Mago / Otro numero para dejar de cargar");
                 clase = teclado.nextInt();
-            } while (clase>=1 || clase<=3);
+            } while (clase>=1 && clase<=3);
         } catch (InputMismatchException e) {
             System.out.println("Ingrese 1,2 o 3" + e.getMessage() + "\n");
         }
@@ -69,15 +81,17 @@ public class main {
         while(it.hasNext()){
             System.out.println(it.next());
         }
-    } // DONE
+        return ejercito;
+    }
 
-    public static void cargarArmeria() {
+    public static List<Arma> cargarArmeria()throws InputMismatchException {
         int arma;
         String nombre = null;
         System.out.println("Seleccione el tipo de arma a agregar: 1-Espada 2-Arco 3-Baculo / Otro numero para dejar de cargar");
         try {
             arma = teclado.nextInt();
-            do {
+            while (arma >= 1 && arma <= 3) {
+                teclado.nextLine();
                 System.out.println("Como se llama el arma?");
                 nombre = teclado.nextLine();
                 switch (arma) {
@@ -101,16 +115,17 @@ public class main {
                 }
                 System.out.println("Seleccioneel tipo de arma a agregar: 1-Espada 2-Arco 3-Baculo / Otro numero para dejar de cargar");
                 arma = teclado.nextInt();
-            } while (arma >= 1 || arma <= 3);
+            }
         } catch (InputMismatchException e) {
             System.out.println("Ingrese 1,2 o 3" + e.getMessage() + "\n");
         }
-        System.out.print("La armeria se compone de las siguientes armas:");
+        System.out.print("La armeria se compone de las siguientes armas:"+ "\n");
         Iterator it = armeria.iterator();
         while (it.hasNext()) {
             System.out.println(it.next());
         }
-    } //TODO ESTA MAL, DE "COMO SE LLAMA" SALTA A NUEVA OPCION.
+        return armeria;
+    }
 
     public static void equiparEjercito(List<Guerrero> ejercito, List<Arma> armeria){
         for (Guerrero guerrero:ejercito){
@@ -129,12 +144,12 @@ public class main {
         }
     }
 
-    public static void matarEnemigo(Guerrero warrior, Enemigo enemy){
+    public static void matarEnemigo(Guerrero guerrero, Enemigo enemy){
         double resultadoAtaque;
-        if (warrior.getClass()==Mago.class){
-            resultadoAtaque = ((Mago) warrior).ataqueMagico();
+        if (guerrero.getClass()==Mago.class){
+            resultadoAtaque = ((Mago) guerrero).ataqueMagico();
         } else {
-            resultadoAtaque = warrior.ataqueBasico();
+            resultadoAtaque = guerrero.ataqueBasico();
         }
         if (enemy.getVida() - resultadoAtaque<=0) {
             enemy.setVida(0);
@@ -149,7 +164,7 @@ public class main {
         }else {
             System.out.println("EL enemigo quedo con "+(enemy.getVida() - resultadoAtaque)+" puntos de vida." );
         }
-    }// DONE
+    }
 
     public static void resultadoDeArmeria(){
         System.out.println( "-----------------------------------------------------------"+"\n"+
