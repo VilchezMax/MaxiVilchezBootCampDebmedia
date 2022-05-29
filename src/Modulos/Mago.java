@@ -32,17 +32,22 @@ public class Mago extends Guerrero {
     }
 
     //Metodo
-    public double ataqueMagico(){
-        return super.ataqueBasico() * this.arma.getPoderAtaque();
+    public double ataqueBasico() {return super.ataqueBasico(); }
+    public double ataqueMagico() {
+        if(this.arma!=null) {
+            return super.ataqueBasico() * this.arma.getPoderAtaque();
+        } else {
+            return ataqueBasico();
+        }
     }
 
     @Override
     public String toString() {
         final DecimalFormat df = new DecimalFormat("0.00");
-        if(this.arma!=null){
-            return super.toString()+" y poder de ataque magico de "+df.format(this.ataqueMagico());
+        if(this.arma==null){
+            return super.toString()+", sin arma.";
         } else {
-            return super.toString()+" y no tiene arma.";
+            return super.toString()+" y poder de ataque basico de "+df.format(this.ataqueMagico())+" por su "+this.arma.getClass().getSimpleName();
         }
     }
 

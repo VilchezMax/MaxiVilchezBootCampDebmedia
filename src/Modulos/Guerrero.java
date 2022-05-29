@@ -1,11 +1,11 @@
 package Modulos;
 
-import Interfaces.IUtilidades;
+
 import Modulos.Armas.Arma;
 
 import java.text.DecimalFormat;
 
-public abstract class Guerrero implements IUtilidades {
+public abstract class Guerrero {
     //Atributos
     private int id;
     private String nombre;
@@ -14,9 +14,9 @@ public abstract class Guerrero implements IUtilidades {
 
     //Constructores
     public Guerrero(){
-        this.id= IUtilidades.idRandom();
-        this.nombre= "";
-        this.fuerza= IUtilidades.fuerzaRandom();
+        this.id= (int) (Math.random()*1000);
+        this.nombre= "NN";
+        this.fuerza= Math.random()*100;
         this.arma=null;
     }
     public Guerrero(int id, String nombre, double fuerza) {

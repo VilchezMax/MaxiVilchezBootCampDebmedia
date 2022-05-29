@@ -1,19 +1,17 @@
 package Modulos.Armas;
 
-import Interfaces.IUtilidades;
-
 import java.text.DecimalFormat;
 
-public abstract class Arma implements IUtilidades {
+public abstract class Arma {
     //Atributos
     private int id;
     private String nombre;
     private double poderAtaque;
     //Constructores
     public Arma(){
-        this.id= IUtilidades.idRandom();
-        this.nombre= "Arma basica";
-        this.poderAtaque= (Math.random()*100);
+        this.id= (int) (Math.random()*1000);
+        this.nombre= "Normal";
+        this.poderAtaque= Math.random()*100;
     }
 
     public Arma(int id, String nombre, double poderAtaque) {

@@ -34,16 +34,20 @@ public class Arquero extends Guerrero {
     //Metodo
     @Override
     public double ataqueBasico() {
-        return super.ataqueBasico() * this.arma.getPoderAtaque();
+        if(this.arma!=null) {
+            return super.ataqueBasico() * this.arma.getPoderAtaque();
+        } else {
+            return super.ataqueBasico();
+        }
     }
 
     @Override
     public String toString() {
         final DecimalFormat df = new DecimalFormat("0.00");
-        if(this.arma!=null){
-            return super.toString()+" y poder de ataque basico de "+df.format(this.ataqueBasico());
+        if(this.arma==null){
+            return super.toString()+", sin arma.";
         } else {
-            return super.toString()+" y no tiene arma.";
+            return super.toString()+" y poder de ataque basico de "+df.format(this.ataqueBasico())+" por su "+this.arma.getClass().getSimpleName();
         }
     }
 

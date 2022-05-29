@@ -17,27 +17,40 @@ public class main {
         equiparEjercito(ejercito,armeria);
         resultadoDeArmeria();
 
-        Berserker reyArturo = new Berserker();
-        Espada excalibur = new Espada();
-        cargarArma(reyArturo,excalibur);
+        Guerrero thor = new Berserker();
+        thor.setNombre("Thor");
+        Espada mjolnir = new Espada(99,"Mjolnir",9999.99);
+        cargarArma(thor,mjolnir);
         Enemigo jefe = new Enemigo();
-        matarEnemigo(reyArturo,jefe);
+        matarEnemigo(thor,jefe);
 
     }
 
     public static void cargarArma(Guerrero guerrero,Arma arma) {
-        if (guerrero.getClass()==Berserker.class && arma.getClass()==Espada.class) {
-            guerrero.setArma(arma);
-        }else if (guerrero.getClass()==Arquero.class && arma.getClass()==Arco.class) {
-            guerrero.setArma(arma);
-        }else if (guerrero.getClass()==Mago.class && arma.getClass()==Baculo.class) {
-            guerrero.setArma(arma);
-        }else {
-            System.out.println("Soy un "+guerrero.getClass().getSimpleName()+" y solo uso "+arma.getClass());
+
+        if (guerrero.getClass()==Berserker.class){
+            if(arma.getClass()==Espada.class) {
+                guerrero.setArma(arma);
+            } else {
+                System.out.println("Soy un "+guerrero.getClass().getSimpleName()+" y solo uso Espada");
+            }
+        } else if (guerrero.getClass()==Arquero.class){
+            if(arma.getClass()==Arco.class) {
+                guerrero.setArma(arma);
+            } else {
+                System.out.println("Soy un "+guerrero.getClass().getSimpleName()+" y solo uso Arco");
+            }
+        } else if (guerrero.getClass()==Mago.class){
+            if(arma.getClass()==Baculo.class){
+                guerrero.setArma(arma);
+            } else {
+            System.out.println("Soy un "+guerrero.getClass().getSimpleName()+" y solo uso Arco");
+            }
         }
+        System.out.println(guerrero.getClass().getSimpleName()+" "+guerrero.getNombre()+" recibio "+arma.toString());
     }
 
-    public static List<Guerrero> cargarEjercito() throws InputMismatchException {
+    public static void cargarEjercito() throws InputMismatchException {
         int clase;
         String nombre = null;
         System.out.println("Seleccione la clase del guerrero a agregar: 1-Berserker 2-Arquero 3-Mago / Otro numero para dejar de cargar");
@@ -47,6 +60,7 @@ public class main {
 
                 System.out.println("Como se llama?");
                 try {
+                    teclado.nextLine();
                     nombre=teclado.nextLine();
                 } catch (InputMismatchException e) {
                     System.out.println("Ingrese un nombre "+e.getMessage());
@@ -76,17 +90,16 @@ public class main {
         } catch (InputMismatchException e) {
             System.out.println("Ingrese 1,2 o 3" + e.getMessage() + "\n");
         }
-        System.out.print("El ejercito se compone de los siguientes guerreros:");
-        Iterator it = ejercito.iterator();
-        while(it.hasNext()){
-            System.out.println(it.next());
+        System.out.print("El ejercito se compone de los siguientes guerreros:"+ "\n");
+        for(Guerrero guerrero:ejercito){
+            System.out.println(guerrero.toString());
         }
-        return ejercito;
+        System.out.println("------------------- o -------------------");
     }
 
     public static List<Arma> cargarArmeria()throws InputMismatchException {
         int arma;
-        String nombre = null;
+        String nombre;
         System.out.println("Seleccione el tipo de arma a agregar: 1-Espada 2-Arco 3-Baculo / Otro numero para dejar de cargar");
         try {
             arma = teclado.nextInt();
@@ -113,39 +126,72 @@ public class main {
                     default:
                         break;
                 }
-                System.out.println("Seleccioneel tipo de arma a agregar: 1-Espada 2-Arco 3-Baculo / Otro numero para dejar de cargar");
+                System.out.println("Seleccione el tipo de arma a agregar: 1-Espada 2-Arco 3-Baculo / Otro numero para dejar de cargar");
                 arma = teclado.nextInt();
             }
         } catch (InputMismatchException e) {
             System.out.println("Ingrese 1,2 o 3" + e.getMessage() + "\n");
         }
         System.out.print("La armeria se compone de las siguientes armas:"+ "\n");
-        Iterator it = armeria.iterator();
-        while (it.hasNext()) {
-            System.out.println(it.next());
+        for (Arma arma1 : armeria){
+            System.out.println(arma1.toString());
         }
+        System.out.println("------------------- o -------------------");
+
         return armeria;
     }
 
-    public static void equiparEjercito(List<Guerrero> ejercito, List<Arma> armeria){
-        for (Guerrero guerrero:ejercito){
-            while (!armeria.isEmpty()){
-                if(guerrero.getClass()==Berserker.class && armeria.contains(Espada.class)){
-                    guerrero.setArma(armeria.get(armeria.indexOf(Espada.class)));
-                    armeria.remove(armeria.indexOf(Espada.class));
-                } else if (guerrero.getClass()==Arquero.class && armeria.contains(Arco.class)){
-                    guerrero.setArma(armeria.get(armeria.indexOf(Arco.class)));
-                    armeria.remove(armeria.indexOf(Arco.class));
-                } else if (guerrero.getClass()==Mago.class && armeria.contains(Baculo.class)){
-                    guerrero.setArma(armeria.get(armeria.indexOf(Baculo.class)));
-                    armeria.remove(armeria.indexOf(Baculo.class));
-                }
+    public static void equiparEjercito(List<Guerrero> ejercito, List<Arma> armeria) {
+        System.out.println("Equipando ejercito..."+"\n"+"---o---");
+        LinkedList<Espada> espadas = new LinkedList<>();
+        LinkedList<Arco> arcos = new LinkedList<>();
+        LinkedList<Baculo> baculos = new LinkedList<>();
+
+        for (Arma arma : armeria){
+            if (arma instanceof Espada) {
+                espadas.addLast((Espada) arma);
+            } else if (arma instanceof Arco){
+                arcos.addLast((Arco) arma);
+            } else if (arma instanceof Baculo){
+                baculos.addLast((Baculo) arma);
             }
         }
+
+        for (Guerrero guerrero: ejercito){
+            Arma nueva;
+            if (guerrero.getClass() == Berserker.class && !espadas.isEmpty()){
+                nueva=espadas.getLast();
+                Espada nuevaArma= new Espada(nueva.getId(),nueva.getNombre(),nueva.getPoderAtaque());
+                ((Berserker)guerrero).setArma(nuevaArma);
+                System.out.println(guerrero.getClass().getSimpleName()+" "+guerrero.getNombre()+" recibio:"+"\n"+
+                        nuevaArma.getClass().getSimpleName()+ " "+nuevaArma.getNombre()+"\n"+"---o---");
+                armeria.remove((espadas.pollLast()));
+
+            } else if (guerrero.getClass() == Arquero.class && !arcos.isEmpty()){
+                nueva=arcos.getLast();
+                Arco nuevaArma= new Arco(nueva.getId(),nueva.getNombre(),nueva.getPoderAtaque());
+                ((Arquero) guerrero).setArma(nuevaArma);
+                System.out.println(guerrero.getClass().getSimpleName()+" "+guerrero.getNombre()+" recibio:"+"\n"+
+                        nuevaArma.getClass().getSimpleName()+ " "+nuevaArma.getNombre()+"\n"+"---o---");
+                armeria.remove((arcos.pollLast()));
+
+            } else if (guerrero.getClass() == Mago.class && !baculos.isEmpty()){
+                nueva=baculos.getLast();
+                Baculo nuevaArma= new Baculo(nueva.getId(),nueva.getNombre(),nueva.getPoderAtaque());
+                ((Mago)guerrero).setArma(nuevaArma);
+                System.out.println(guerrero.getClass().getSimpleName()+" "+guerrero.getNombre()+" recibio :"+"\n"+
+                        nuevaArma.getClass().getSimpleName()+ " "+nuevaArma.getNombre()+"\n"+"---o---");
+                armeria.remove((baculos.pollLast()));
+            }
+        }
+        System.out.println("Ejercito equipado."+"\n"+"------------------------------------------------");
+
     }
 
     public static void matarEnemigo(Guerrero guerrero, Enemigo enemy){
         double resultadoAtaque;
+        System.out.println("--------------- o ---------------"+"\n" +
+                guerrero.getClass().getSimpleName()+" "+guerrero.getNombre()+" ataco a "+enemy.getClass().getSimpleName());
         if (guerrero.getClass()==Mago.class){
             resultadoAtaque = ((Mago) guerrero).ataqueMagico();
         } else {
@@ -160,7 +206,7 @@ public class main {
                     "|  |    /  _____  \\   |  |     /  _____  \\  |  `----.|  |     |  |         |  |     \n" +
                     "|__|   /__/     \\__\\  |__|    /__/     \\__\\ |_______||__|     |__|         |__|     \n" +
                     "                                                                                    ");
-            System.out.println("El enemigo murio!");
+            System.out.println("El enemigo murio!" +"\n"+ "--------------- o ---------------" );
         }else {
             System.out.println("EL enemigo quedo con "+(enemy.getVida() - resultadoAtaque)+" puntos de vida." );
         }
@@ -168,13 +214,19 @@ public class main {
 
     public static void resultadoDeArmeria(){
         System.out.println( "-----------------------------------------------------------"+"\n"+
-                            armeria.size()+" armas no fueron equipadas.");
-        System.out.println("-----------------------------------------------------------"+"\n"+
-                            "Los siguientes guerreros no obtuvieron armas: ");
+                            "Total de armas sin equipar: " + armeria.size());
+        System.out.println("-----------------------------------------------------------" + "\n" +
+                "Guerreros sin equipar: ");
+        boolean ninguno=true;
         for(Guerrero guerrero:ejercito){
-            if(guerrero.getArma()!=null){
+            if(guerrero.getArma() == null){
                 System.out.println(guerrero.toString());
+                ninguno=false;
             }
+        }
+
+        if(ninguno){
+            System.out.println("0. Todos los guerreros obtuvieron armas");
         }
     }
 
