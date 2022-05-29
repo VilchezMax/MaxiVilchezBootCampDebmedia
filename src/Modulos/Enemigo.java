@@ -5,6 +5,9 @@ public class Enemigo {
     private int vida;
 
     //Constructor-----------------------
+    public Enemigo(){
+        this.vida = (int) (Math.random()*10);
+    }
     public Enemigo(int vida) {
         this.vida = vida;
     }

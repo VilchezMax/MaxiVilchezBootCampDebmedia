@@ -1,17 +1,27 @@
 package Modulos;
 
-public abstract class Guerrero {
+import Interfaces.IUtilidades;
+import Modulos.Armas.Arma;
+
+public abstract class Guerrero implements IUtilidades {
     //Atributos
     private int id;
     private String nombre;
     private double fuerza;
+    private Arma arma; //Agrego este atributo aunque no estaba en el diagrama xq facilita mucho el uso del metodo cargarArma(Guerrero,Arma)
 
     //Constructores
-
+    public Guerrero(){
+        this.id= IUtilidades.idRandom();
+        this.nombre= "";
+        this.fuerza= IUtilidades.fuerzaRandom();
+        this.arma=null;
+    }
     public Guerrero(int id, String nombre, double fuerza) {
         this.id = id;
         this.nombre = nombre;
         this.fuerza = fuerza;
+        this.arma=null;
     }
 
     //Setters & Getters
@@ -39,8 +49,21 @@ public abstract class Guerrero {
         this.fuerza = fuerza;
     }
 
+    public Arma getArma() {
+        return arma;
+    }
+
+    public void setArma(Arma arma) {
+        this.arma = arma;
+    }
+
     //Metodos
     public double ataqueBasico(){
-        return this.fuerza * arma.poderAtaque;
+        return this.fuerza;
+    }
+
+    @Override
+    public String toString() {
+        return this.getNombre()+", "+this.getClass()+" de ID "+this.getId()+" con una fuerza de "+this.getFuerza()+" puntos";
     }
 }
