@@ -47,7 +47,8 @@ public class main {
             System.out.println("Soy un "+guerrero.getClass().getSimpleName()+" y solo uso Arco");
             }
         }
-        System.out.println(guerrero.getClass().getSimpleName()+" "+guerrero.getNombre()+" recibio "+arma.toString());
+        System.out.println("------------------- o -------------------"+"\n"+
+                "> "+guerrero.getClass().getSimpleName()+" "+guerrero.getNombre()+" recibio '"+arma.toString()+"'");
     }
 
     public static void cargarEjercito() throws InputMismatchException {
@@ -183,38 +184,29 @@ public class main {
                 armeria.remove((baculos.pollLast()));
             }
         }
-        System.out.println("Ejercito equipado."+"\n"+"------------------------------------------------");
+        System.out.println("Ejercito equipado."+"\n"+"------------------- o -------------------");
 
     }
 
     public static void matarEnemigo(Guerrero guerrero, Enemigo enemy){
         double resultadoAtaque;
-        System.out.println("--------------- o ---------------"+"\n" +
-                guerrero.getClass().getSimpleName()+" "+guerrero.getNombre()+" ataco a "+enemy.getClass().getSimpleName());
+        System.out.println("------------------- o -------------------");
         if (guerrero.getClass()==Mago.class){
             resultadoAtaque = ((Mago) guerrero).ataqueMagico();
         } else {
             resultadoAtaque = guerrero.ataqueBasico();
         }
         if (enemy.getVida() - resultadoAtaque<=0) {
-            enemy.setVida(0);
-            System.out.println(" _______    ___   .___________.    ___       __       __  .___________.____    ____ \n" +
-                    "|   ____|  /   \\  |           |   /   \\     |  |     |  | |           |\\   \\  /   / \n" +
-                    "|  |__    /  ^  \\ `---|  |----`  /  ^  \\    |  |     |  | `---|  |----` \\   \\/   /  \n" +
-                    "|   __|  /  /_\\  \\    |  |      /  /_\\  \\   |  |     |  |     |  |       \\_    _/   \n" +
-                    "|  |    /  _____  \\   |  |     /  _____  \\  |  `----.|  |     |  |         |  |     \n" +
-                    "|__|   /__/     \\__\\  |__|    /__/     \\__\\ |_______||__|     |__|         |__|     \n" +
-                    "                                                                                    ");
-            System.out.println("El enemigo murio!" +"\n"+ "--------------- o ---------------" );
+            System.out.println(guerrero.getClass().getSimpleName()+" "+guerrero.getNombre()+" puede matar al enemigo"+"\n"+ "------------------- o -------------------" );
         }else {
-            System.out.println("EL enemigo quedo con "+(enemy.getVida() - resultadoAtaque)+" puntos de vida." );
+            System.out.println("EL enemigo puede sobrevivir quedando con "+(enemy.getVida() - resultadoAtaque)+" puntos de vida." );
         }
     }
 
     public static void resultadoDeArmeria(){
-        System.out.println( "-----------------------------------------------------------"+"\n"+
+        System.out.println( "------------------- o -------------------"+"\n"+
                             "Total de armas sin equipar: " + armeria.size());
-        System.out.println("-----------------------------------------------------------" + "\n" +
+        System.out.println("------------------- o -------------------" + "\n" +
                 "Guerreros sin equipar: ");
         boolean ninguno=true;
         for(Guerrero guerrero:ejercito){
