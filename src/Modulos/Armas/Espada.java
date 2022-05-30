@@ -1,5 +1,7 @@
 package Modulos.Armas;
 
+import Interfaces.IUtilidades;
+
 public class Espada extends Arma{
 
     //Constructores
