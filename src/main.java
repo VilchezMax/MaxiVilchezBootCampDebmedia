@@ -189,16 +189,25 @@ public class main {
 
     public static void matarEnemigo(Guerrero guerrero, Enemigo enemy){
         double resultadoAtaque;
-        System.out.println("--------------- o ---------------");
+        System.out.println("--------------- o ---------------"+"\n" +
+                guerrero.getClass().getSimpleName()+" "+guerrero.getNombre()+" ataco a "+enemy.getClass().getSimpleName());
         if (guerrero.getClass()==Mago.class){
             resultadoAtaque = ((Mago) guerrero).ataqueMagico();
         } else {
             resultadoAtaque = guerrero.ataqueBasico();
         }
         if (enemy.getVida() - resultadoAtaque<=0) {
-            System.out.println(guerrero.getClass().getSimpleName()+" "+guerrero.getNombre()+" puede matar al enemigo"+"\n"+ "--------------- o ---------------" );
+            enemy.setVida(0);
+            System.out.println(" _______    ___   .___________.    ___       __       __  .___________.____    ____ \n" +
+                    "|   ____|  /   \\  |           |   /   \\     |  |     |  | |           |\\   \\  /   / \n" +
+                    "|  |__    /  ^  \\ `---|  |----`  /  ^  \\    |  |     |  | `---|  |----` \\   \\/   /  \n" +
+                    "|   __|  /  /_\\  \\    |  |      /  /_\\  \\   |  |     |  |     |  |       \\_    _/   \n" +
+                    "|  |    /  _____  \\   |  |     /  _____  \\  |  `----.|  |     |  |         |  |     \n" +
+                    "|__|   /__/     \\__\\  |__|    /__/     \\__\\ |_______||__|     |__|         |__|     \n" +
+                    "                                                                                    ");
+            System.out.println("El enemigo murio!" +"\n"+ "--------------- o ---------------" );
         }else {
-            System.out.println("EL enemigo puede sobrevivir quedando con "+(enemy.getVida() - resultadoAtaque)+" puntos de vida." );
+            System.out.println("EL enemigo quedo con "+(enemy.getVida() - resultadoAtaque)+" puntos de vida." );
         }
     }
 
