@@ -12,19 +12,6 @@ public class main {
     public final DecimalFormat df = new DecimalFormat("0.00");
 
     public static void main(String[] args) {
-        cargarArmeria();
-        cargarEjercito();
-        equiparEjercito(ejercito,armeria);
-        resultadoDeArmeria();
-
-        Guerrero reyArturo = new Berserker();
-        reyArturo.setNombre("Rey Arturo");
-        Espada excalibur = new Espada(99,"Excalibur",9999.99);
-        excalibur.setNombre("Excalibur Legendaria");
-        cargarArma(reyArturo,excalibur);
-        Enemigo jefe = new Enemigo();
-        matarEnemigo(reyArturo,jefe);
-
     }
 
     public static void cargarArma(Guerrero guerrero,Arma arma) {
