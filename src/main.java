@@ -17,12 +17,13 @@ public class main {
         equiparEjercito(ejercito,armeria);
         resultadoDeArmeria();
 
-        Guerrero trunks = new Berserker();
-        trunks.setNombre("Trunks");
-        Espada z = new Espada(99,"z",9999.99);
-        z.setPoderAtaque(4000.00);
+        Guerrero reyArturo = new Berserker();
+        reyArturo.setNombre("Rey Arturo");
+        Espada excalibur = new Espada(99,"Excalibur",9999.99);
+        excalibur.setNombre("Excalibur Legendaria");
+        cargarArma(reyArturo,excalibur);
         Enemigo jefe = new Enemigo();
-        matarEnemigo(trunks,jefe);
+        matarEnemigo(reyArturo,jefe);
 
     }
 
