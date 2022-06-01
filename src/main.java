@@ -17,12 +17,13 @@ public class main {
         equiparEjercito(ejercito,armeria);
         resultadoDeArmeria();
 
-        Guerrero thor = new Berserker();
-        thor.setNombre("Thor");
-        Espada mjolnir = new Espada(99,"Mjolnir",9999.99);
-        cargarArma(thor,mjolnir);
+        Guerrero reyArturo = new Berserker();
+        reyArturo.setNombre("Rey Arturo");
+        Espada excalibur = new Espada(99,"Excalibur",9999.99);
+        excalibur.setNombre("Excalibur Legendaria");
+        cargarArma(reyArturo,excalibur);
         Enemigo jefe = new Enemigo();
-        matarEnemigo(thor,jefe);
+        matarEnemigo(reyArturo,jefe);
 
     }
 
