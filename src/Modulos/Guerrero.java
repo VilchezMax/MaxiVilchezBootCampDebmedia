@@ -60,6 +60,7 @@ public abstract class Guerrero {
     }
 
     //Metodos
+    // Éste me hubiese gustado que lo hagan abstracto, y que no tengamos una implementacion acá.
     public double ataqueBasico(){
         return this.fuerza;
     }

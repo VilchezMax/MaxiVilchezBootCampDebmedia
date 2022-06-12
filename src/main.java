@@ -110,6 +110,7 @@ public class main {
                 System.out.println("Como se llama el arma?");
                 nombre = teclado.nextLine();
                 switch (arma) {
+                    // Buena manera de resolver ésto de una manera mas dinamica.
                     case 1:
                         Espada nuevaEspada = new Espada();
                         nuevaEspada.setNombre(nombre); //  El unico parametro ingresado es nombre porque se utilizo
@@ -135,6 +136,7 @@ public class main {
             System.out.println("Ingrese 1,2 o 3" + e.getMessage() + "\n");
         }
         System.out.print("La armeria se compone de las siguientes armas:"+ "\n");
+        // Bien hecho acá, se entendio bien que por que hereda de Arma puede o implementa el .toString() de cada clase no?
         for (Arma arma1 : armeria){
             System.out.println(arma1.toString());
         }
@@ -160,6 +162,33 @@ public class main {
 
         for (Guerrero guerrero: ejercito){
             Arma nueva;
+            /* Ésto fue un poco lo que comentaba que me hubiese gustado que hicieras. Pero perfecto!
+            for (Arma arma : armeria){
+                if(guerrero.getClass() == Berserker.class && guerrero.getArma() == null && arma.getClass() == Espada.class){
+                    guerrero.setArma(arma);
+                    System.out.println(guerrero.getClass().getSimpleName()+" "+guerrero.getNombre()+" recibio:"+"\n"+
+                            arma.getClass().getSimpleName()+ " "+arma.getNombre()+"\n"+"---o---");
+                    armeria.remove(arma);
+                    break;
+                }
+
+                if(guerrero.getClass() == Arquero.class && guerrero.getArma() == null && arma.getClass() == Arco.class){
+                    guerrero.setArma(arma);
+                    System.out.println(guerrero.getClass().getSimpleName()+" "+guerrero.getNombre()+" recibio:"+"\n"+
+                            arma.getClass().getSimpleName()+ " "+arma.getNombre()+"\n"+"---o---");
+                    armeria.remove(arma);
+                    break;
+                }
+
+                if(guerrero.getClass() == Mago.class && guerrero.getArma() == null && arma.getClass() == Baculo.class){
+                    guerrero.setArma(arma);
+                    System.out.println(guerrero.getClass().getSimpleName()+" "+guerrero.getNombre()+" recibio:"+"\n"+
+                            arma.getClass().getSimpleName()+ " "+arma.getNombre()+"\n"+"---o---");
+                    armeria.remove(arma);
+                    break;
+                }
+            }*/
+
             if (guerrero.getClass() == Berserker.class && !espadas.isEmpty()){
                 nueva=espadas.getLast();
                 Espada nuevaArma= new Espada(nueva.getId(),nueva.getNombre(),nueva.getPoderAtaque());
